@@ -116,12 +116,46 @@ Step 9: Select the hex file from the Kiel program folder and import the program 
 
 
 ### Kiel - Program  
+```
+#include <lpc214x.h>
+
+// Input switches
+#define SW1	0x00010000				// P1.16
+
+// Output LEDs
+#define LED_D9	0x00000400 			// P0.10
+
+int main ()
+{
+	IO0DIR = 0x003C3C00 ;			// Configure P0.10 to P0.13 and P0.18 to P0.21 as Output	
+	IO0SET = 0x003C3C00 ;			// SET (1) P0.10 to P0.13 and P0.18 to P0.21, LEDs OFF
+	while(1)
+	{
+		
+		if(!(IO1PIN & SW1))			// Check whether SW1 is pressed or not
+		{
+			IO0CLR = LED_D9 ;		// LED D9, ON if SW1 pressed
+		}
+		else
+		{
+			IO0SET = LED_D9 ;		// LED D9, OFF if SW1 released
+		}
+		
+	}
+}
+```
+### Output screen shots :
+#### BEFORE SWITCHING ON LED:
+![201475853-b397b4b9-9a61-4756-9d12-991912f9889e](https://user-images.githubusercontent.com/94169318/202905591-807238fb-dac9-4761-861d-b5a0d8c20e01.png)
+
+#### AFTER SWITCHING ON LED:
+![201475864-016d3412-8076-4bee-a57e-60bb4a68eaf6](https://user-images.githubusercontent.com/94169318/202905609-ca5d6eda-96fd-4743-a318-09bea6d371fc.png)
 
 
 ### Result :
 Interfacing a digital output with ARM microcontroller is executed 
 
-### Output screen shots :
+
 
 
 
